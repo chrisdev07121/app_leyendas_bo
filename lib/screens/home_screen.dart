@@ -8,6 +8,7 @@ import '../services/auth_service.dart';
 import 'detalle_screen.dart';
 import 'crear_leyenda_screen.dart';
 import 'login_screen.dart';
+import 'package:upgrader/upgrader.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -366,7 +367,8 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(width: 8),
         ],
       ),
-      body: RefreshIndicator(
+      body: UpgradeAlert(
+        child: RefreshIndicator(
         onRefresh: _cargarLeyendasDeFirebase,
         child: CustomScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -704,7 +706,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
           ],
         ),
-      ),
+      ),),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _navegarACrearLeyenda,
         backgroundColor: const Color(0xFF2F6B5F),
