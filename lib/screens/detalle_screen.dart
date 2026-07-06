@@ -111,6 +111,35 @@ class _DetalleScreenState extends State<DetalleScreen> {
   }
 
   Future<void> _toggleFavorite() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+            'Debes iniciar sesión para agregar a favoritos',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          backgroundColor: const Color(0xFFC84B31),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          action: SnackBarAction(
+            label: 'Ingresar',
+            textColor: Colors.white,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              ).then((value) {
+                if (value == true) {
+                  _loadInitialData();
+                }
+              });
+            },
+          ),
+        ),
+      );
+      return;
+    }
     final prefs = await SharedPreferences.getInstance();
     final favoritesList = prefs.getStringList('favoritos_ids') ?? [];
     setState(() {

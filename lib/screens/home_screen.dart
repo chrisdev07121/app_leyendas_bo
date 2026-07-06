@@ -43,6 +43,35 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _toggleFavorito(String id) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+            'Debes iniciar sesión para agregar a favoritos',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          backgroundColor: const Color(0xFFC84B31),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          action: SnackBarAction(
+            label: 'Ingresar',
+            textColor: Colors.white,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              ).then((value) {
+                if (value == true) {
+                  setState(() {});
+                }
+              });
+            },
+          ),
+        ),
+      );
+      return;
+    }
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       if (_favoritasIds.contains(id)) {
@@ -162,18 +191,125 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             icon: const Icon(Icons.info_outline),
             onPressed: () {
-              showAboutDialog(
+              showDialog(
                 context: context,
-                applicationName: 'Miénteme',
-                applicationVersion: '1.0.0',
-                applicationIcon: const Icon(Icons.auto_stories, size: 50, color: Color(0xFF2F6B5F)),
-                children: [
-                  const Text('Desarrollador: Chris'),
-                  const SizedBox(height: 8),
-                  const Text('Correo: chris.dev.0712@gmail.com'),
-                  const SizedBox(height: 8),
-                  const Text('Cel: 75949161'),
-                ],
+                builder: (context) {
+                  return Dialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    backgroundColor: const Color(0xFFFBF7F4),
+                    child: Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: const BoxDecoration(
+                              color: Color(0xFFF1E2D0),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.auto_stories,
+                              size: 48,
+                              color: Color(0xFF2F6B5F),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Miénteme',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w800,
+                              color: Color(0xFF2F241F),
+                            ),
+                          ),
+                          const Text(
+                            'Versión 1.2.0',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Color(0xFF8A766A),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          const Divider(color: Color(0xFFE5D5C5)),
+                          const SizedBox(height: 12),
+                          Row(
+                            children: [
+                              const Icon(Icons.person_outline, color: Color(0xFF9E4F2E), size: 20),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text('Desarrollador', style: TextStyle(fontSize: 12, color: Color(0xFF8A766A))),
+                                    Text('Chris', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF2F241F))),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          Row(
+                            children: [
+                              const Icon(Icons.mail_outline, color: Color(0xFF9E4F2E), size: 20),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text('Correo electrónico', style: TextStyle(fontSize: 12, color: Color(0xFF8A766A))),
+                                    Text('chris.dev.0712@gmail.com', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF2F241F))),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          Row(
+                            children: [
+                              const Icon(Icons.phone_android_outlined, color: Color(0xFF9E4F2E), size: 20),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text('Celular', style: TextStyle(fontSize: 12, color: Color(0xFF8A766A))),
+                                    Text('75949161', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF2F241F))),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 24),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF2F6B5F),
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                padding: const EdgeInsets.symmetric(vertical: 14),
+                                elevation: 0,
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text(
+                                'Cerrar',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               );
             },
           ),
