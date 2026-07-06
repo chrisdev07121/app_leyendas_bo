@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "906313688113",
+    "project_id": "leyendas-app",
+    "storage_bucket": "leyendas-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906313688113:android:c6913e27b604cb70c0e110",
+        "android_client_info": {
+          "package_name": "com.purplemist.app_leyendas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPbNyCVLKQumTO0CvuJ_aUXX2I9K1pnGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
