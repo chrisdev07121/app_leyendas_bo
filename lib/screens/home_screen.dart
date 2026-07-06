@@ -244,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: const [
                                     Text('Desarrollador', style: TextStyle(fontSize: 12, color: Color(0xFF8A766A))),
-                                    Text('Chris', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF2F241F))),
+                                    Text('Chris.dev.0712', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF2F241F))),
                                   ],
                                 ),
                               ),
