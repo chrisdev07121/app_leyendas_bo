@@ -27,7 +27,6 @@ class _CrearLeyendaScreenState extends State<CrearLeyendaScreen> {
   double _nivelDeTerror = 3.0;
 
   String? _departamentoSeleccionado;
-  List<String> _personajes = [];
   bool _isLoading = false;
   String? _errorMessage;
 
@@ -42,7 +41,6 @@ class _CrearLeyendaScreenState extends State<CrearLeyendaScreen> {
       _descripcionLargaController.text = l.descripcionLarga;
       _imagenController.text = l.imagen;
       _origenController.text = l.origen;
-      _personajes = List.from(l.personajes);
       _horaAparicionController.text = l.horaAparicion;
       _habitatController.text = l.habitat;
       _ritualController.text = l.ritualDeProteccion;
