@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,6 +11,12 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _authService = AuthService();
+  Future<void> _launchURL(String urlString) async {
+    final Uri url = Uri.parse(urlString);
+    try {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } catch (_) {}
+  }
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
@@ -150,36 +157,50 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                           const SizedBox(height: 12),
-                          Row(
-                            children: [
-                              const Icon(Icons.mail_outline, color: Color(0xFF9E4F2E), size: 20),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text('Correo electrónico', style: TextStyle(fontSize: 12, color: Color(0xFF8A766A))),
-                                    Text('chris.dev.0712@gmail.com', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF2F241F))),
-                                  ],
-                                ),
+                          InkWell(
+                            onTap: () => _launchURL('mailto:chris.dev.0712@gmail.com?subject=Leyendas%20Bolivianas'),
+                            borderRadius: BorderRadius.circular(12),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.mail_outline, color: Color(0xFF9E4F2E), size: 20),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: const [
+                                        Text('Correo electrónico', style: TextStyle(fontSize: 12, color: Color(0xFF8A766A))),
+                                        Text('chris.dev.0712@gmail.com', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF2F241F))),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                          const SizedBox(height: 12),
-                          Row(
-                            children: [
-                              const Icon(Icons.phone_android_outlined, color: Color(0xFF9E4F2E), size: 20),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text('Celular', style: TextStyle(fontSize: 12, color: Color(0xFF8A766A))),
-                                    Text('75949161', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF2F241F))),
-                                  ],
-                                ),
+                          const SizedBox(height: 8),
+                          InkWell(
+                            onTap: () => _launchURL('https://wa.me/59175949161'),
+                            borderRadius: BorderRadius.circular(12),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.phone_android_outlined, color: Color(0xFF9E4F2E), size: 20),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: const [
+                                        Text('Celular (WhatsApp)', style: TextStyle(fontSize: 12, color: Color(0xFF8A766A))),
+                                        Text('75949161', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF2F241F))),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                           const SizedBox(height: 24),
                           SizedBox(
